@@ -162,56 +162,63 @@ const routes = [
     path: "/post/:id",
     name: "Post",
     component: () => import("../views/Post.vue"),
-    meta: {
-      title: "Post | Vuetify Blog Template",
-      metaTags: [
-        {
-          name: 'title',
-          content: 'Post | Vuetify Blog Template'
-        },
-        {
-          property: 'description',
-          content: 'A blog template made using Veutify and VueJS. THis template is totally Open-Source, so feel free to add issues, star or fork the repo'
-        },
-        {
-          name: "og:type",
-          content: "website"
-        },
-        {
-          name: "og:url",
-          content: "https://nemesis-as.github.io/vuetify-blog/#/post"
-        },
-        {
-          name: 'og:title',
-          content: 'Post | Vuetify Blog Template'
-        },
-        {
-          property: 'og:description',
-          content: 'A blog template made using Veutify and VueJS. THis template is totally Open-Source, so feel free to add issues, star or fork the repo'
-        },
-        {
-          name: "twitter:card",
-          content: "summary"
-        },
-        {
-          name: "twitter:url",
-          content: "https://nemesis-as.github.io/vuetify-blog/#/post"
-        },
-        {
-          name: 'twitter:title',
-          content: 'Post | Vuetify Blog Template'
-        },
-        {
-          property: 'twitter:description',
-          content: 'A blog template made using Veutify and VueJS. THis template is totally Open-Source, so feel free to add issues, star or fork the repo'
-        }
-      ]
+    meta:(route) => { return {
+        title: `Post#${route.params.id} | Vuetify Blog Template`,
+        metaTags: [
+          {
+            name: 'title',
+            content: `Post#${route.params.id} | Vuetify Blog Template`
+          },
+          {
+            property: 'description',
+            content: 'A blog template made using Veutify and VueJS. THis template is totally Open-Source, so feel free to add issues, star or fork the repo'
+          },
+          {
+            name: "og:type",
+            content: "website"
+          },
+          {
+            name: "og:url",
+            content: "https://nemesis-as.github.io/vuetify-blog/#/post"
+          },
+          {
+            name: 'og:title',
+            content: `Post#${route.params.id} | Vuetify Blog Template`
+          },
+          {
+            property: 'og:description',
+            content: 'A blog template made using Veutify and VueJS. THis template is totally Open-Source, so feel free to add issues, star or fork the repo'
+          },
+          {
+            name: "twitter:card",
+            content: "summary"
+          },
+          {
+            name: "twitter:url",
+            content: "https://nemesis-as.github.io/vuetify-blog/#/post"
+          },
+          {
+            name: 'twitter:title',
+            content: `Post#${route.params.id} | Vuetify Blog Template`
+          },
+          {
+            property: 'twitter:description',
+            content: 'A blog template made using Veutify and VueJS. THis template is totally Open-Source, so feel free to add issues, star or fork the repo'
+          }
+        ]
+      }
     }
   }
 ]
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title || "Vuetify Blog Template";
+  if (typeof(to.meta) === "function") document.title = to.meta(to).title;
+  next();
 })
 
 export default router

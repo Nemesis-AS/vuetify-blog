@@ -49,6 +49,13 @@ export default {
             link_yt: ""
         }
     },
+    watch: {
+        $route: {
+            handler: function(to) {
+                this.fetchPost(to.params.id);
+            }
+        }
+    },
     methods: {
         fetchPost(id) {
             let post = this.posts.find(item => item.id == id);
